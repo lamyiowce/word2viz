@@ -1,3 +1,5 @@
+import pandas as pd
+
 def get_with_tsne(df, words, a, b):
     axis = df.loc[b] - df.loc[a]
     df_words = df.loc[words]
@@ -8,10 +10,8 @@ def get_with_tsne(df, words, a, b):
     df_words_tsne["axis"] = df_words.dot(axis)
     return df_words_tsne
 
-def get_with_axes(df, words, a, b, c, d):
-    ab = df.loc[a] - df.loc[b]
-    cd = df.loc[c] - df.loc[d]
-    proj = pd.DataFrame([ab, cd], index=["ab", "cd"]).transpose()
+def get_with_axes(df, words, a, b):
+    proj = pd.DataFrame([a, b], index=["a", "b"]).transpose()
     df_plot = df.loc[words].dot(proj)
     df_plot["name"] = df_plot.index
     return df_plot
