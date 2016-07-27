@@ -12,50 +12,69 @@ function callback(data) {
 		}
 		vecs[data[i][0]] = vec;
 	}
-/*	var data = data.map(function(row) {
-		var vec = [];
-		for (var key in row) {
-			if (key !== "0") {
-				vec.push(+row[key]);
-			}
-		}
-		return {word: row[0], v: vec};
+	wordlist = Object.keys(vecs);
+	console.log(getWithAxes(vecs, 
+		["good", "bad", "fast", "slow", "up", "down"], 
+		substract(vecs["up"], vecs["down"]), 
+		substract(vecs["good"], vecs["bad"])));
 
-	});*/
-	console.log(vecs);
-	console.log(vecs["chair"]);
-	console.log("initianrere");
-	var wordlist = Object.keys(vecs);
-	console.log(dotAll(vecs["chair"], vecs));
-	for (var i = 0; i < 10; i++) {
-		console.log(dotAll(vecs[wordlist[i]], vecs));
-	}
-	console.log("do idzenia")
+	
 
-}
+	var width = 800, height = 600;
+	var margin = {top: 20, bottom: 20, left: 20, right: 20};
+	var svg = d3.select("body")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height);
 
-function dot(a, b)
-{
-	var ret = 0;
-	for (var i = 0; i < a.length; i++) {
-		ret += a[i]*b[i];
-	}
-	return ret;
-}
+	var ploth = 400, plotw = 400;
 
-function vlen(a)
-{
-	var ret = 0;
-	for (var i = 0; i < a.length; i++){}
-}
+	
 
-function dotAll(a, vecs)
-{
-	var ret = [];
-	var wordlist = Object.keys(vecs);
-	for (var i = 0; i < wordlist.length; i++) {
-		ret.push([wordlist[i], dot(a, vecs[wordlist[i]])]);
-	}
-	ret.sort(function(a, b) { return a[1] > b[1]})
-	return ret.splice(0, 10);
+	testpoints = getWithAxes(vecs, 
+		["good", "bad", "fast", "slow", "up", "down"], 
+		substract(vecs["up"], vecs["down"]), 
+		substract(vecs["good"], vecs["bad"]));
+	
+	var aMin = d3.min(testpoints, function(d) { return d.a_axis; })
+	var aMax = d3.max(testpoints, function(d) { return d.a_axis; })
+	var bMin = d3.min(testpoints, function(d) { return d.b_axis; })
+	var bMax = d3.max(testpoints, function(d) { return d.b_axis; })
+	
+	var x = d3.scale.linear()
+		.domain([aMin, aMax])
+		.range([0, plotw]);
+	var y = d3.scale.linear()
+		.domain([bMin, bMax])
+		.range([ploth, 0]);
+
+	var xAxis = d3.svg.axis()
+		.scale(x);
+
+	var plot = svg.append("g")
+		.attr("class", "plot")
+		.attr("transform", "translate(20, 20)");
+
+	plot.append("g")
+		.attr("class", "axis")
+		.attr("transform", "translate(0, 300)")
+		.call(xAxis);
+		
+	var elem = plot.selectAll("plot")
+		.data(testpoints);
+
+	var elemEnter = elem.enter()
+		.append("g")
+		.attr("transform", function(d) { 
+			return "translate("+x(d.a_axis)+","+y(d.b_axis)+")"; 
+		});
+
+	elemEnter.append("circle")
+		.attr("class", "point")
+		.attr("r", 1);
+
+	elemEnter.append("text")
+		.attr("class", "pointlabel")
+        .text(function(d){return d.word})
+        .attr("dx", 4);
 }

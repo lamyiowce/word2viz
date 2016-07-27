@@ -1,0 +1,9 @@
+.point {
+
+}
+
+.pointlabel {
+	dominant-baseline: middle;
+	font-size: 12px;
+	font-family: serif;
+}
