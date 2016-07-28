@@ -26,7 +26,7 @@ function vlen(a)
 	return Math.sqrt(ret);
 }
 
-function substract(a, b) 
+function subtract(a, b) 
 {
 	for (var i = 0; i < a.length; i++)
 	{
@@ -59,4 +59,11 @@ function getWithAxes(vecs, words, a, b)
 		});
 	}
 	return plotData;
+}
+
+function getWithAxesJson(vecs, jsonData)
+{
+	return getWithAxes(vecs, jsonData.words, 
+		subtract(vecs[jsonData.xAxis[0]], vecs[jsonData.xAxis[1]]), 
+		subtract(vecs[jsonData.yAxis[0]], vecs[jsonData.yAxis[1]]));
 }
