@@ -67,32 +67,41 @@ function callback(data) {
 	plot.select(".axis.x")
 		.append("text")
 			.attr("class", "axislabel")
-			.attr("dx", width/20)
-			.attr("dy", 35)
+			.attr("dx", width/40)
+			.attr("dy", 38)
 			.text("down");
 
 	plot.select(".axis.x")
 		.append("text")
 			.attr("class", "axislabel")
-			.attr("dx", width*19/20)
+			.attr("dx", width*39/40)
 			.attr("dy", 38)
 			.text("up");
 
-	plot.select(".axis.y")
-		.append("text")
-			.attr("transform", "rotate(-90)")
-			.attr("class", "axislabel")
-			.attr("dy", height*19/20)
-			.attr("dx", 20)
-			.text("good");
+
 
 	console.log(plot);
 
 	plot.append("g")
 		.attr("class", "axis y")
-		.attr("transform", "translate(0, 0)")
 		.call(yAxis);
-		
+
+	plot.select(".axis.y")
+		.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("class", "axislabel")
+			.attr("dy", -38)
+			.attr("dx", 0)
+			.text("good");
+	
+	plot.select(".axis.y")
+		.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("class", "axislabel")
+			.attr("dy", -38)
+			.attr("dx", -height*0.975)
+			.text("bad");
+
 	var elem = plot.selectAll("plot")
 		.data(testpoints);
 
