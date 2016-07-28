@@ -1,16 +1,24 @@
 function Plot(selector, data, info) {
 	var width = 400, height = 300;
 	var margin = {top: 60, bottom: 60, left: 60, right: 40};
-	var svg = d3.select(selector)
-		.append("svg")
-		.attr("width", width+margin.left + margin.right)
-		.attr("height", height+margin.top+ margin.bottom);	
-
+	var svg;
+	var plot; 
+	var parent = selector;
     this.remove = function() {
     	svg.remove();
     }
 
     this.makePlot = function (data, info) {
+    	console.log("initial: ", d3.select(parent));
+    	svg = d3.select(parent)
+			.append("svg")
+			.attr("width", width+margin.left + margin.right)
+			.attr("height", height+margin.top+ margin.bottom);	
+
+		plot = svg.append("g")
+			.attr("id", "plot")
+			.attr("transform", "translate("+margin.left+", "+margin.top+")");
+
     	var aMin = d3.min(data, function(d) { return d.a_axis; });
 		var aMax = d3.max(data, function(d) { return d.a_axis; });
 		var bMin = d3.min(data, function(d) { return d.b_axis; });
@@ -23,51 +31,41 @@ function Plot(selector, data, info) {
 		var y = d3.scale.linear()
 			.domain([bMin-yDataMargin, bMax+yDataMargin])
 			.range([height, 0]);
-
-
 		var xAxis = d3.svg.axis()
 			.scale(x);
 		var yAxis = d3.svg.axis()
 			.scale(y)
 			.orient("left");
 
-		var plot = svg.append("g")
-			.attr("class", "plot")
-			.attr("transform", "translate("+margin.left+", "+margin.top+")");
-
-		plot.append("g")
+		var xAxisPlot = plot.append("g")
 			.attr("class", "axis x")
 			.attr("transform", "translate(0, "+ height +")")
 			.call(xAxis);
 			
-		plot.select(".axis.x")
-			.append("text")
+		xAxisPlot.append("text")
 				.attr("class", "axislabel")
 				.attr("dx", width/40)
 				.attr("dy", 38)
 				.text(info.xAxis[1]);
 
-		plot.select(".axis.x")
-			.append("text")
+		xAxisPlot.append("text")
 				.attr("class", "axislabel")
 				.attr("dx", width*39/40)
 				.attr("dy", 38)
 				.text(info.xAxis[0]);
 
-		plot.append("g")
+		var yAxisPlot = plot.append("g")
 			.attr("class", "axis y")
 			.call(yAxis);
 
-		plot.select(".axis.y")
-			.append("text")
+		yAxisPlot.append("text")
 				.attr("transform", "rotate(-90)")
 				.attr("class", "axislabel")
 				.attr("dy", -38)
 				.attr("dx", 0)
 				.text(info.yAxis[0]);
 		
-		plot.select(".axis.y")
-			.append("text")
+		yAxisPlot.append("text")
 				.attr("transform", "rotate(-90)")
 				.attr("class", "axislabel")
 				.attr("dy", -38)
@@ -79,17 +77,16 @@ function Plot(selector, data, info) {
 */
 		console.log("plot: ", plot);
 
-		console.log("elem: ", elem);
-
-		var elemEnter = elem.selectAll("g")
+		var elemEnter = plot.selectAll(".pointcontainer")
+			.data(data)
 			.enter()
 			.append("g")
+			.attr("class", "pointcontainer")
 			.attr("transform", function(d) { 
 				return "translate("+x(d.a_axis)+","+y(d.b_axis)+")"; 
 			});
 
-
-
+		console.log("elementer: ", elemEnter);
 		elemEnter.append("circle")
 			.attr("class", "point")
 			.attr("r", 1.75);
@@ -101,4 +98,10 @@ function Plot(selector, data, info) {
     }
 
 	this.makePlot(data, info);
+
+	this.updatePlot = function (data, info) {
+		console.log(svg);
+		svg.remove();
+		this.makePlot(data, info);
+	}
 }
