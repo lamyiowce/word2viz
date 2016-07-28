@@ -1,8 +1,10 @@
+"use strict";
+
 d3.csv("/data/minimal.50d.3f.csv", callback);
 
 function callback(data) { 
 	console.log(data[0]);
-	vecs = {};
+	var vecs = {};
 	for (var i = 0; i < data.length; i++) {
 		var vec = [];
 		for (var key in data[i]) {
@@ -12,29 +14,29 @@ function callback(data) {
 		}
 		vecs[data[i][0]] = vec;
 	}
-	wordlist = Object.keys(vecs);
+	var wordlist = Object.keys(vecs);
 	console.log(getWithAxes(vecs, 
 		["good", "bad", "fast", "slow", "up", "down"], 
 		substract(vecs["up"], vecs["down"]), 
 		substract(vecs["good"], vecs["bad"])));
 
 	var width = 400, height = 300;
-	var margin = {top: 40, bottom: 40, left: 60, right: 40};
+	var margin = {top: 40, bottom: 60, left: 80, right: 40};
 	var svg = d3.select("body")
 		.append("svg")
 		.attr("width", width+margin.left + margin.right)
 		.attr("height", height+margin.top+ margin.bottom);	
 
-	testpoints = getWithAxes(vecs, 
+	var testpoints = getWithAxes(vecs, 
 		["good", "bad", "fast", "slow", "up", "down"], 
 		substract(vecs["up"], vecs["down"]), 
 		substract(vecs["good"], vecs["bad"]));
 	
 
-	var aMin = d3.min(testpoints, function(d) { return d.a_axis; }) -0.05;
-	var aMax = d3.max(testpoints, function(d) { return d.a_axis; }) +0.05;
-	var bMin = d3.min(testpoints, function(d) { return d.b_axis; }) -0.05;
-	var bMax = d3.max(testpoints, function(d) { return d.b_axis; }) +0.05;
+	var aMin = d3.min(testpoints, function(d) { return d.a_axis; });
+	var aMax = d3.max(testpoints, function(d) { return d.a_axis; });
+	var bMin = d3.min(testpoints, function(d) { return d.b_axis; });
+	var bMax = d3.max(testpoints, function(d) { return d.b_axis; });
 
 	var xDataMargin = (aMax-aMin)*0.1;
 	var yDataMargin = (bMax-bMin)*0.1;
@@ -81,7 +83,7 @@ function callback(data) {
 			.attr("transform", "rotate(-90)")
 			.attr("class", "axislabel")
 			.attr("dy", height*19/20)
-			.attr("dx", 0)
+			.attr("dx", 20)
 			.text("good");
 
 	console.log(plot);
