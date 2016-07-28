@@ -18,47 +18,78 @@ function callback(data) {
 		substract(vecs["up"], vecs["down"]), 
 		substract(vecs["good"], vecs["bad"])));
 
-	
-
-	var width = 800, height = 600;
-	var margin = {top: 20, bottom: 20, left: 20, right: 20};
+	var width = 400, height = 300;
+	var margin = {top: 40, bottom: 40, left: 60, right: 40};
 	var svg = d3.select("body")
 		.append("svg")
-		.attr("width", width)
-		.attr("height", height);
-
-	var ploth = 400, plotw = 400;
-
-	
+		.attr("width", width+margin.left + margin.right)
+		.attr("height", height+margin.top+ margin.bottom);	
 
 	testpoints = getWithAxes(vecs, 
 		["good", "bad", "fast", "slow", "up", "down"], 
 		substract(vecs["up"], vecs["down"]), 
 		substract(vecs["good"], vecs["bad"]));
 	
-	var aMin = d3.min(testpoints, function(d) { return d.a_axis; })
-	var aMax = d3.max(testpoints, function(d) { return d.a_axis; })
-	var bMin = d3.min(testpoints, function(d) { return d.b_axis; })
-	var bMax = d3.max(testpoints, function(d) { return d.b_axis; })
-	
+
+	var aMin = d3.min(testpoints, function(d) { return d.a_axis; }) -0.05;
+	var aMax = d3.max(testpoints, function(d) { return d.a_axis; }) +0.05;
+	var bMin = d3.min(testpoints, function(d) { return d.b_axis; }) -0.05;
+	var bMax = d3.max(testpoints, function(d) { return d.b_axis; }) +0.05;
+
+	var xDataMargin = (aMax-aMin)*0.1;
+	var yDataMargin = (bMax-bMin)*0.1;
 	var x = d3.scale.linear()
-		.domain([aMin, aMax])
-		.range([0, plotw]);
+		.domain([aMin-xDataMargin, aMax+xDataMargin])
+		.range([0, width]);
 	var y = d3.scale.linear()
-		.domain([bMin, bMax])
-		.range([ploth, 0]);
+		.domain([bMin-yDataMargin, bMax+yDataMargin])
+		.range([height, 0]);
 
 	var xAxis = d3.svg.axis()
 		.scale(x);
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.orient("left");
 
 	var plot = svg.append("g")
 		.attr("class", "plot")
-		.attr("transform", "translate(20, 20)");
+		.attr("transform", "translate("+margin.left+", "+margin.top+")");
+
+	console.log(plot);
 
 	plot.append("g")
-		.attr("class", "axis")
-		.attr("transform", "translate(0, 300)")
+		.attr("class", "axis x")
+		.attr("transform", "translate(0, "+ height +")")
 		.call(xAxis);
+		
+	plot.select(".axis.x")
+		.append("text")
+			.attr("class", "axislabel")
+			.attr("dx", width/20)
+			.attr("dy", 35)
+			.text("down");
+
+	plot.select(".axis.x")
+		.append("text")
+			.attr("class", "axislabel")
+			.attr("dx", width*19/20)
+			.attr("dy", 38)
+			.text("up");
+
+	plot.select(".axis.y")
+		.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("class", "axislabel")
+			.attr("dy", height*19/20)
+			.attr("dx", 0)
+			.text("good");
+
+	console.log(plot);
+
+	plot.append("g")
+		.attr("class", "axis y")
+		.attr("transform", "translate(0, 0)")
+		.call(yAxis);
 		
 	var elem = plot.selectAll("plot")
 		.data(testpoints);
@@ -71,7 +102,7 @@ function callback(data) {
 
 	elemEnter.append("circle")
 		.attr("class", "point")
-		.attr("r", 1);
+		.attr("r", 1.75);
 
 	elemEnter.append("text")
 		.attr("class", "pointlabel")

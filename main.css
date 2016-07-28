@@ -1,9 +1,25 @@
 .point {
-
+  fill: #3366cc;
 }
 
 .pointlabel {
 	dominant-baseline: middle;
 	font-size: 12px;
-	font-family: serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.axislabel {
+	text-anchor: middle;
+	font-size: 16px;
+}
+
+.tick {
+	font-size: 10px;
 }
