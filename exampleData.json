@@ -1,0 +1,134 @@
+[
+	{
+		"id": "man_woman",
+		"name": "Gender analogies",
+		"words": [
+				["man", "woman"],
+				["uncle", "aunt"],
+				["niece", "nephew"],
+				["king", "queen"],
+				["brother", "sister"],
+				["heir", "heiress"], 
+				["actor", "actress"],
+				["son", "daughter"],
+				["father", "mother"],
+				["grandfather", "grandmother"]
+				],
+		"xAxis": ["he", "she"],
+		"yAxis": ["queen", "woman"]
+	},
+
+	{
+		"id": "adjectives",
+		"name": "Adjectives analogies",
+		"words": [
+			["clear", "clearer", "clearest"], 
+			["dark", "darker", "darkest"], 
+			["strong", "stronger", "strongest"],
+			["long", "longer", "longest"],
+			["big", "bigger", "biggest"],
+			["fat", "fatter", "fattest"],
+			["thin", "thinner", "thinnest"]
+		],
+		"xAxis": ["nicest", "nice"],
+		"yAxis": ["nicest", "nicer"]
+	},
+
+	{
+		"id": "numbers",
+		"name": "Numbers say-write analogies",
+		"words": [ 
+			["two", "2"],
+			["three", "3"],  
+			["four", "4"], 
+			["five", "5"], 
+			["six", "6"], 
+			["seven", "7"]
+		],
+		"xAxis": ["3", "three"],
+		"yAxis": ["seven", "three"]
+
+	},
+
+	{
+		"id": "up_down",
+		"name": "Up-down linguistic metaphors",
+		"words": [
+			["happy", "sad"], 
+			["rich", "poor"], 
+			["important", "unimportant"],
+			["evil"], 
+			["healthy", "ill"], 
+			["high", "low"],
+			["conscious", "unconscious"],
+			["unknown", "known"],
+			["finished", "incomplete", "complete"],
+			["positive", "negative"], 
+			["active", "passive"],
+			["hot", "cold"], 
+			["loud", "quiet"],
+			["on", "off"]
+		],
+		"xAxis": ["good", "bad"],
+		"yAxis": ["up", "down"]
+
+
+	},
+
+	{
+		"id": "verbs",
+		"name": "Verb tenses",
+		"words": [
+			["go", "went"], 
+			["swim", "swam"], 
+			["sing", "sang"],
+			["dance", "danced"], 
+			["bring", "brought"],
+			["break", "broke"],
+			["destroy", "destroyed"],
+			["play", "played"],
+			["paint", "painted"],
+			["look", "looked"],
+			["fail", "failed"],
+			["fight", "fought"],
+			["betray", "betrayed"],
+			["cheat", "cheated"]
+		],
+		"yAxis": ["she", "he"],
+		"xAxis": ["gave", "give"]
+	},
+
+	{
+		"id": "jobs",
+		"name": "Jobs",
+		"words": [
+			["nurse"], ["doctor"],
+			["waiter"], ["waitress"], 
+			["actor"], ["actress"], 
+			["teacher"], 
+			["ceo"], ["secretary"], 
+			["plumber"],
+			["nanny"],
+			["programmer"], ["homemaker"],
+			["painter"], ["dancer"], ["singer"],
+			["prostitute"], ["thief"],
+			["businessman"], ["businesswoman"],
+			["policeman"], ["policewoman"]
+		],
+		"yAxis": ["ceo", "janitor"],
+		"xAxis": ["she", "he"]
+	},
+
+	{
+		"id": "good_evil",
+		"name": "God: similar words",
+		"words": [],
+		"xAxis": ["good", "evil"],
+		"yAxis": ["place", "person"],
+		"findClosest": {
+			"word": "god",
+			"n": 15
+		}
+	}
+
+]

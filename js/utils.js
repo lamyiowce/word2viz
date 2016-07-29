@@ -38,16 +38,15 @@ function subtract(a, b)
 	return c;
 }
 
-function dotAllNorm(vecs, a)
+function dotAllNorm(vecs, a, n = 10)
 {
 	var wordlist = Object.keys(vecs);
-
 	var ret = [];
 	for (var i = 0; i < wordlist.length; i++) {
 		ret.push([wordlist[i], dotNorm(a, vecs[wordlist[i]])]);
 	}
 	ret.sort(function(a, b) { return b[1] - a[1]})
-	return ret.splice(0, 10);
+	return ret.splice(0, n);
 }
 
 function getWithAxes(vecs, words, a, b)
