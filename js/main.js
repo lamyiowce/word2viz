@@ -15,13 +15,23 @@ function callback(data) {
 		}
 		vecs[data[i][0]] = vec;
 	}
-	var wordlist = Object.keys(vecs);
 	d3.json("exampleData.json",callback1);
 }
 
-function callback1(exampleData) {
-	
-	var wybor = d3.select("body")
+function callback1(errors, rawData) {
+	console.log(errors);
+	console.log(rawData);
+
+	var exampleData = getParsedData(vecs, rawData);
+
+	var chooseDiv = d3.select("body")
+		.append("div");
+
+	chooseDiv.append("div").append("text")
+		.text("What do you want to see?");
+
+
+	var wybor = chooseDiv
 		.append("div")
 		.append('select')
 		.attr('id', 'dataSelect')
@@ -31,10 +41,9 @@ function callback1(exampleData) {
 			})[0];
 
 			var newPlotPoints = getWithAxesJson(vecs, newPlotData);	
-			console.log("new plot points:", newPlotPoints)
-			console.log("new plot data:", newPlotData)
-			plot.updatePlot(newPlotPoints, newPlotData);
+				plot.updatePlot(newPlotPoints, newPlotData);
 		});
+
 
 	for (var i = 0; i < exampleData.length; i++) {
 		wybor.append('option')
@@ -43,8 +52,7 @@ function callback1(exampleData) {
 	}
 
 	console.log(exampleData);
-	var initialPoints = getWithAxesJson(vecs, exampleData[1]);
-	console.log(initialPoints);
-	var plot = new Plot("body", initialPoints, exampleData[1]);
+	var initialPoints = getWithAxesJson(vecs, exampleData[0]);
+	var plot = new Plot("body", initialPoints, exampleData[0]);
 
 }
