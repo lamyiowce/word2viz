@@ -19,8 +19,18 @@ function callback(data) {
 	d3.json("exampleData.json",callback1);
 }
 
-function callback1(exampleData) {
+function callback1(errors, exampleData) {
+	console.log(errors);
+	for (var i =0;i < exampleData.length; i++) {
+		exampleData[i]["flat"] = [];
+		for (var j = 0; j < exampleData[i].words.length; j++) {
+			for (var u = 0; u < exampleData[i].words[j].length; u++ ){
+				exampleData[i].flat[exampleData[i].words[j][u]]= j;
+			}
+		}
+	}
 	
+	console.log(exampleData);
 	var wybor = d3.select("body")
 		.append("div")
 		.append('select')
@@ -43,8 +53,8 @@ function callback1(exampleData) {
 	}
 
 	console.log(exampleData);
-	var initialPoints = getWithAxesJson(vecs, exampleData[1]);
+	var initialPoints = getWithAxesJson(vecs, exampleData[0]);
 	console.log(initialPoints);
-	var plot = new Plot("body", initialPoints, exampleData[1]);
+	var plot = new Plot("body", initialPoints, exampleData[0]);
 
 }

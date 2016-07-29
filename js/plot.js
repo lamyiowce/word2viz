@@ -1,6 +1,6 @@
 function Plot(selector, data, info) {
-	var width = 400, height = 300;
-	var margin = {top: 60, bottom: 60, left: 60, right: 40};
+	var width = 600, height = 400;
+	var margin = {top: 60, bottom: 60, left: 60, right: 60};
 	var svg;
 	var plot; 
 	var parent = selector;
@@ -77,6 +77,25 @@ function Plot(selector, data, info) {
 */
 		console.log("plot: ", plot);
 
+		var it = 0;
+		var dataFiltered;
+		var linkContainer = plot.append("g")
+			.attr("id", "linkContainer");
+
+		do {
+			dataFiltered = data.filter(function(d) { return d.group === it; });
+			for(var i = 0; i < dataFiltered.length-1; i++) {
+				linkContainer.append("line")
+					.attr("class", "link")
+					.attr("id", "link"+it)
+					.attr("x1", x(dataFiltered[i].a_axis))
+					.attr("x2", x(dataFiltered[i+1].a_axis))
+					.attr("y1", y(dataFiltered[i].b_axis))
+					.attr("y2", y(dataFiltered[i+1].b_axis));
+			}
+			it++;
+		} while(dataFiltered.length > 0);
+
 		var elemEnter = plot.selectAll(".pointcontainer")
 			.data(data)
 			.enter()
@@ -86,15 +105,33 @@ function Plot(selector, data, info) {
 				return "translate("+x(d.a_axis)+","+y(d.b_axis)+")"; 
 			});
 
-		console.log("elementer: ", elemEnter);
-		elemEnter.append("circle")
+
+		var links = linkContainer.selectAll(".link");
+
+		var points = elemEnter.append("circle")
 			.attr("class", "point")
 			.attr("r", 1.75);
 
-		elemEnter.append("text")
+		var labels = elemEnter.append("text")
 			.attr("class", "pointlabel")
 	        .text(function(d){return d.word})
-	        .attr("dx", 4);
+	        .attr("dx", 4)
+	        .on('mouseover', function(d, i) {
+	        	labels.attr("class", function (t, j) {
+	        		return t.group == d.group ? "pointlabel" : "pointlabel unselected";
+	        	})
+	        	points.attr("class", function (t, j) {
+	        		return t.group == d.group ? "point" : "point unselected";
+	        	})
+	        	links.attr("class", "link unselected");
+	        	linkContainer.selectAll("#link"+d.group)
+	        		.attr("class", "link selected");
+	        })
+	        .on('mouseout', function(d) {
+	        	labels.attr("class", "pointlabel");
+	        	points.attr("class", "point");
+	        	links.attr("class", "link");
+	        });
     }
 
 	this.makePlot(data, info);

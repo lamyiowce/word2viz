@@ -4,13 +4,13 @@
 
 .pointlabel {
 	dominant-baseline: middle;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .axis path,
 .axis line {
     fill: none;
-    stroke: grey;
+    stroke: gray;
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
@@ -22,4 +22,20 @@
 
 .tick {
 	font-size: 10px;
+}
+
+.link {
+	stroke-width: 1px;
+    stroke: orangered;
+    opacity: 0.6;
+}
+
+.pointlabel.unselected {
+	opacity: 0.4;
+}
+.point.unselected {
+	opacity: 0.6;
+}
+.link.unselected {
+	opacity: 0.3;
 }
