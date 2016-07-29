@@ -10,6 +10,8 @@ function dot(a, b)
 
 function dotNorm(a, b)
 {
+//	console.log("dotnorm a ", a);
+//	console.log("b: ", b);
 	var ret = 0;
 	for (var i = 0; i < a.length; i++) {
 		ret += a[i]*b[i]/(vlen(a)*vlen(b));
@@ -27,12 +29,13 @@ function vlen(a)
 }
 
 function subtract(a, b) 
-{
+{	
+	var c = [];
 	for (var i = 0; i < a.length; i++)
 	{
-		a[i] = a[i] - b[i];
+		c.push(a[i] - b[i]);
 	}
-	return a;
+	return c;
 }
 
 function dotAllNorm(vecs, a)
@@ -49,7 +52,8 @@ function dotAllNorm(vecs, a)
 
 function getWithAxes(vecs, words, a, b)
 {
-	plotData = [];
+	console.log(a, b);
+	var plotData = [];
 	for (var i = 0; i < words.length; i++)
 	{
 		plotData.push({ 
@@ -58,12 +62,23 @@ function getWithAxes(vecs, words, a, b)
 			b_axis: dotNorm(vecs[words[i]], b) 
 		});
 	}
+	console.log(plotData);
 	return plotData;
 }
 
 function getWithAxesJson(vecs, jsonData)
 {
-	return getWithAxes(vecs, jsonData.words, 
-		subtract(vecs[jsonData.xAxis[0]], vecs[jsonData.xAxis[1]]), 
-		subtract(vecs[jsonData.yAxis[0]], vecs[jsonData.yAxis[1]]));
+	var a_axis = subtract(vecs[jsonData.xAxis[0]], vecs[jsonData.xAxis[1]]);
+	var b_axis = subtract(vecs[jsonData.yAxis[0]], vecs[jsonData.yAxis[1]]);
+
+	return getWithAxes(vecs, jsonData.words, a_axis, b_axis);
+}
+
+function getVec(word)
+{
+	if (word in vecs) return word;
+	else {
+		alert("Word " + word + " not in data.")
+		return [-1000];
+	}
 }

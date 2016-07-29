@@ -5,7 +5,7 @@ d3.csv("/data/minimal.50d.3f.csv", callback);
 var vecs = {};
 
 function callback(data) { 
-	console.log("Loaded data.");
+	console.log("Loaded vector data.");
 	for (var i = 0; i < data.length; i++) {
 		var vec = [];
 		for (var key in data[i]) {
