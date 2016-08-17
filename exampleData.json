@@ -103,8 +103,8 @@
 		"name": "Jobs",
 		"words": [
 			["nurse"], ["doctor"],
-			["waiter"], ["waitress"], 
-			["actor"], ["actress"], 
+			["waiter", "waitress"], 
+			["actor", "actress"], 
 			["teacher"], 
 			["ceo"], ["secretary"], 
 			["plumber"],
@@ -112,10 +112,12 @@
 			["programmer"], ["homemaker"],
 			["painter"], ["dancer"], ["singer"],
 			["prostitute"], ["thief"],
-			["businessman"], ["businesswoman"],
-			["policeman"], ["policewoman"]
+			["businessman", "businesswoman"],
+			["policeman", "policewoman"],
+			["janitor"],
+			["priest"], ["nun"]
 		],
-		"yAxis": ["ceo", "janitor"],
+		"yAxis": ["rich", "poor"],
 		"xAxis": ["she", "he"]
 	},
 
