@@ -129,6 +129,26 @@
 			"word": "god",
 			"n": 15
 		}
+	},
+
+	{
+		"id": "intelligence",
+		"name": "Intelligence",
+		"words": [["smart"], ["dumb"], ["idiot"], ["genius"], ["intelligent"], ["stupid"], ["clever"]],
+		"xAxis": ["fast", "slow"],
+		"yAxis": ["bright", "dim"]
+	},
+
+	{
+		"id": "nostalgia",
+		"name": "Nostalgia",
+		"words": [],
+		"xAxis": ["melancholy", "nostalgia"],
+		"yAxis": ["happy", "sad"],
+		"findClosest": {
+			"word": "nostalgia",
+			"n": 15
+		}
 	}
 
 ]
