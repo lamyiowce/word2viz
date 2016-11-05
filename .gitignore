@@ -5,3 +5,6 @@
 *.gz
 *.tar
 
+__pycache__/
+data/
+lib/
