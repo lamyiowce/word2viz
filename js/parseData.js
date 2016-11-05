@@ -34,7 +34,6 @@ function getParsedData(vecs, exampleData) {
 */
 
 function getParsedExample(vecs, exampleData) {
-	var wordlist = Object.keys(vecs);
 	if (exampleData.words.length > 0) {
 		exampleData["flat"] = {};
 		for (var j = 0; j < exampleData.words.length; j++) {
@@ -47,6 +46,7 @@ function getParsedExample(vecs, exampleData) {
 				}
 			}
 		}
+		exampleData.groupsNumber = exampleData.words.length;
 	}
 	else {
 		exampleData["flat"] = {};
@@ -59,6 +59,7 @@ function getParsedExample(vecs, exampleData) {
 			exampleData.flat[similarList[it][0]] = it;
 			it++;
 		}
+		exampleData.groupsNumber = it;
 	}
 	return exampleData;
 }
