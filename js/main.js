@@ -39,7 +39,7 @@ function callback1(errors, rawData) {
 					return obj.id == d3.select("#dataSelect").node().value;
 			})[0]);
 			currentPoints = getWithAxesJson(vecs, currentExample);
-			plot.updatePlot(currentPoints, currentExample);
+			updateExample(currentExample);
 		});
 
 	for (var i = 0; i < rawData.length; i++) {
@@ -57,7 +57,8 @@ function callback1(errors, rawData) {
 
 	console.log(currentExample);
 
- // Add words
+ // Adding words
+
 	var addWordDiv = d3.select("body")
 		.append("div")
 		.style("float", "right");
@@ -93,7 +94,7 @@ function callback1(errors, rawData) {
 				currentExample.words.push([newWord]);
 				currentExample.flat[newWord] = currentExample.groupsNumber++;
 				console.log(currentExample);
-				plot.updatePlot(getWithAxesJson(vecs, currentExample), currentExample);
+				updateExample(currentExample);
 			}
 		});
 
@@ -101,4 +102,23 @@ function callback1(errors, rawData) {
 		.style("display", "hidden");
 
 	var plot = new Plot("body", currentPoints, currentExample);
+	updateExample(currentExample);
+	// plot updating
+	function updateExample() {
+		plot.updatePlot(getWithAxesJson(vecs, currentExample), currentExample);
+
+		// point deletion
+		d3.selectAll(".pointlabel")
+			.on("click", function (d) {
+				console.log(d);
+				for(var word in currentExample.flat) {
+	    		if(currentExample.flat.hasOwnProperty(word) && currentExample.flat[word] == d.group) {
+	        	delete currentExample.flat[word];
+					}
+				}
+				console.log
+				updateExample(currentExample);
+			});
+	}
+
 }

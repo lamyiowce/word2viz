@@ -2,7 +2,7 @@ function Plot(selector, data, info) {
 	var width = 600, height = 400;
 	var margin = {top: 60, bottom: 60, left: 60, right: 60};
 	var svg;
-	var plot; 
+	var plot;
 	var parent = selector;
     this.remove = function() {
     	svg.remove();
@@ -13,7 +13,7 @@ function Plot(selector, data, info) {
     	svg = d3.select(parent)
 			.append("svg")
 			.attr("width", width+margin.left + margin.right)
-			.attr("height", height+margin.top+ margin.bottom);	
+			.attr("height", height+margin.top+ margin.bottom);
 
 		plot = svg.append("g")
 			.attr("id", "plot")
@@ -41,7 +41,7 @@ function Plot(selector, data, info) {
 			.attr("class", "axis x")
 			.attr("transform", "translate(0, "+ height +")")
 			.call(xAxis);
-			
+
 		xAxisPlot.append("text")
 				.attr("class", "axislabel")
 				.attr("dx", width/40)
@@ -64,7 +64,7 @@ function Plot(selector, data, info) {
 				.attr("dy", -38)
 				.attr("dx", 0)
 				.text(info.yAxis[0]);
-		
+
 		yAxisPlot.append("text")
 				.attr("transform", "rotate(-90)")
 				.attr("class", "axislabel")
@@ -82,27 +82,26 @@ function Plot(selector, data, info) {
 		var linkContainer = plot.append("g")
 			.attr("id", "linkContainer");
 
-		do {
-			dataFiltered = data.filter(function(d) { return d.group === it; });
+		for (var j = 0; j < info.groupsNumber; j++) {
+			dataFiltered = data.filter(function(d) { return d.group === j; });
 			for(var i = 0; i < dataFiltered.length-1; i++) {
 				linkContainer.append("line")
 					.attr("class", "link")
-					.attr("id", "link"+it)
+					.attr("id", "link"+j)
 					.attr("x1", x(dataFiltered[i].a_axis))
 					.attr("x2", x(dataFiltered[i+1].a_axis))
 					.attr("y1", y(dataFiltered[i].b_axis))
 					.attr("y2", y(dataFiltered[i+1].b_axis));
 			}
-			it++;
-		} while(dataFiltered.length > 0);
+		}
 
 		var elemEnter = plot.selectAll(".pointcontainer")
 			.data(data)
 			.enter()
 			.append("g")
 			.attr("class", "pointcontainer")
-			.attr("transform", function(d) { 
-				return "translate("+x(d.a_axis)+","+y(d.b_axis)+")"; 
+			.attr("transform", function(d) {
+				return "translate("+x(d.a_axis)+","+y(d.b_axis)+")";
 			});
 
 
