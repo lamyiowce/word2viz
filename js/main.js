@@ -23,13 +23,15 @@ function callback1(errors, rawData) {
 	console.log(rawData);
 
 	// Data plot selection
-	var chooseDiv = d3.select("body")
-		.append("div");
+	var menuDiv = d3.select("body")
+		.append("div")
+		.style("float", "right")
+		.style("width", "40%");
 
-	chooseDiv.append("div").append("text")
+	menuDiv.append("div").append("text")
 		.text("What do you want to see?");
 
-	var wybor = chooseDiv
+	var wybor = menuDiv
 		.append("div")
 		.append('select')
 		.attr('id', 'dataSelect')
@@ -57,13 +59,13 @@ function callback1(errors, rawData) {
 
 	console.log(currentExample);
 
-	var addDiv =  d3.select("body")
-		.append("div")
-		.style("float", "right");
+	// var menuDiv =  d3.select("body")
+	// 	.append("div")
+	// 	.style("float", "right");
 
  // Adding single words
 
-	var addWordDiv = addDiv.append("div");
+	var addWordDiv = menuDiv.append("div");
 
 	addWordDiv.append("input")
 		.attr("type", "text")
@@ -99,11 +101,9 @@ function callback1(errors, rawData) {
 			}
 		});
 
-
-
 // Adding a pair
 
-var addPairDiv = addDiv.append("div");
+var addPairDiv = menuDiv.append("div");
 
 	addPairDiv.append("input")
 		.attr("type", "text")
@@ -161,8 +161,69 @@ var addPairDiv = addDiv.append("div");
 			}
 		});
 
+// axis changing
+	var changeAxesDiv = menuDiv.append("div");
+
+	changeAxesDiv.append("input")
+		.attr("type", "text")
+		.attr("name", "Xaxis1")
+		.attr("id", "Xaxis1")
+		.attr("value", currentExample.xAxis[1]);
+
+	changeAxesDiv.append("input")
+		.attr("type", "text")
+		.attr("name", "Xaxis2")
+		.attr("id", "Xaxis2")
+		.attr("value", currentExample.xAxis[0]);
+
+	changeAxesDiv.append("input")
+		.attr("type", "text")
+		.attr("name", "Yaxis1")
+		.attr("id", "Yaxis1")
+		.attr("value", currentExample.yAxis[1]);
+
+	changeAxesDiv.append("input")
+		.attr("type", "text")
+		.attr("name", "Yaxis2")
+		.attr("id", "Yaxis2")
+		.attr("value", currentExample.yAxis[0]);
+
+	changeAxesDiv.append("input")
+		.attr("name", "changeAxesButton")
+		.attr("type", "button")
+		.attr("value", "Change axes labels")
+		.attr("id", "changeAxesButton")
+		.on("click", function() {
+			var x1 = d3.select("#Xaxis1").node().value;
+			var x0 = d3.select("#Xaxis2").node().value;
+			var y1 = d3.select("#Yaxis1").node().value;
+			var y0 = d3.select("#Yaxis2").node().value;
+			if (!(x1 in vecs) || x1.length == 0) {
+				addWordError.text("Word " + x1 + " not in dictionary.")
+					.style("visibility", "");
+			}
+			else if (!(x0 in vecs) || x0.length == 0) {
+				addWordError.text("Word " + x0 + " not in dictionary.")
+					.style("visibility", "");
+			} else if (!(y1 in vecs) || y1.length == 0) {
+				addWordError.text("Word " + y1 + " not in dictionary.")
+					.style("visibility", "");
+			} else if (!(y0 in vecs) || y0.length == 0) {
+				addWordError.text("Word " + y0 + " not in dictionary.")
+					.style("visibility", "");
+			} else {
+				addWordError.style("visibility", "hidden");
+				currentExample.xAxis[0] = x0;
+				currentExample.xAxis[1] = x1;
+				currentExample.yAxis[0] = y0;
+				currentExample.yAxis[1] = y1;
+				console.log(currentExample);
+				updateExample(currentExample);
+			}
+			});
+
 	// word adding error display
-	var addWordError = addDiv.append("text")
+	var addWordError = menuDiv.append("text")
 		.style("visibility", "hidden");
 
 	var plot = new Plot("body", currentPoints, currentExample);
