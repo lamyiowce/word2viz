@@ -8,7 +8,7 @@
 				["niece", "nephew"],
 				["king", "queen"],
 				["brother", "sister"],
-				["heir", "heiress"], 
+				["heir", "heiress"],
 				["actor", "actress"],
 				["son", "daughter"],
 				["father", "mother"],
@@ -22,8 +22,8 @@
 		"id": "adjectives",
 		"name": "Adjectives analogies",
 		"words": [
-			["clear", "clearer", "clearest"], 
-			["dark", "darker", "darkest"], 
+			["clear", "clearer", "clearest"],
+			["dark", "darker", "darkest"],
 			["strong", "stronger", "strongest"],
 			["long", "longer", "longest"],
 			["big", "bigger", "biggest"],
@@ -37,12 +37,12 @@
 	{
 		"id": "numbers",
 		"name": "Numbers say-write analogies",
-		"words": [ 
+		"words": [
 			["two", "2"],
-			["three", "3"],  
-			["four", "4"], 
-			["five", "5"], 
-			["six", "6"], 
+			["three", "3"],
+			["four", "4"],
+			["five", "5"],
+			["six", "6"],
 			["seven", "7"]
 		],
 		"xAxis": ["3", "three"],
@@ -54,18 +54,18 @@
 		"id": "up_down",
 		"name": "Up-down linguistic metaphors",
 		"words": [
-			["happy", "sad"], 
-			["rich", "poor"], 
+			["happy", "sad"],
+			["rich", "poor"],
 			["important", "unimportant"],
-			["evil"], 
-			["healthy", "ill"], 
+			["evil"],
+			["healthy", "ill"],
 			["high", "low"],
 			["conscious", "unconscious"],
 			["unknown", "known"],
 			["finished", "incomplete", "complete"],
-			["positive", "negative"], 
+			["positive", "negative"],
 			["active", "passive"],
-			["hot", "cold"], 
+			["hot", "cold"],
 			["loud", "quiet"],
 			["on", "off"]
 		],
@@ -79,10 +79,10 @@
 		"id": "verbs",
 		"name": "Verb tenses",
 		"words": [
-			["go", "went"], 
-			["swim", "swam"], 
+			["go", "went"],
+			["swim", "swam"],
 			["sing", "sang"],
-			["dance", "danced"], 
+			["dance", "danced"],
 			["bring", "brought"],
 			["break", "broke"],
 			["destroy", "destroyed"],
@@ -103,10 +103,10 @@
 		"name": "Jobs",
 		"words": [
 			["nurse"], ["doctor"],
-			["waiter", "waitress"], 
-			["actor", "actress"], 
-			["teacher"], 
-			["ceo"], ["secretary"], 
+			["waiter", "waitress"],
+			["actor", "actress"],
+			["teacher"],
+			["ceo"], ["secretary"],
 			["plumber"],
 			["nanny"],
 			["programmer"], ["homemaker"],
@@ -150,6 +150,18 @@
 		"findClosest": {
 			"word": "nostalgia",
 			"n": 15
+		}
+	},
+
+	{
+		"id": "empty",
+		"name": "Empty",
+		"words": [],
+		"xAxis": ["", ""],
+		"yAxis": ["", ""],
+		"findClosest": {
+			"word": "",
+			"n": 0
 		}
 	}
 
