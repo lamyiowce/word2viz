@@ -40,3 +40,11 @@
 .link.unselected {
 	opacity: 0.3;
 }
+
+div {
+  padding: 6px;
+}
+
+body {
+	font-family: Helvetica, Sans-serif;
+}

@@ -26,12 +26,16 @@ function callback1(errors, rawData) {
 	var menuDiv = d3.select("body")
 		.append("div")
 		.style("float", "right")
-		.style("width", "40%");
+		.style("width", "40%")
+		.style("padding", "10px");
 
-	menuDiv.append("div").append("text")
+
+	var selectDiv = menuDiv.append("div");
+
+	selectDiv.append("div").append("h3")
 		.text("What do you want to see?");
 
-	var wybor = menuDiv
+	var wybor = selectDiv
 		.append("div")
 		.append('select')
 		.attr('id', 'dataSelect')
@@ -164,45 +168,56 @@ var addPairDiv = menuDiv.append("div");
 // axis changing
 	var changeAxesDiv = menuDiv.append("div");
 
-	changeAxesDiv.append("input")
+	var changeXDiv = changeAxesDiv.append("div");
+
+	changeXDiv.append("text")
+		.text("X axis: ");
+
+	changeXDiv.append("input")
 		.attr("type", "text")
 		.attr("name", "Xaxis1")
 		.attr("id", "Xaxis1")
 		.attr("value", currentExample.xAxis[1]);
 
-	changeAxesDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "Xaxis2")
-		.attr("id", "Xaxis2")
-		.attr("value", currentExample.xAxis[0]);
+	changeXDiv.append("input")
+	.attr("type", "text")
+	.attr("name", "Xaxis0")
+	.attr("id", "Xaxis0")
+	.attr("value", currentExample.xAxis[0]);
 
-	changeAxesDiv.append("input")
+	var changeYDiv = changeAxesDiv.append("div");
+
+
+	changeYDiv.append("text")
+		.text("Y axis: ");
+
+	changeYDiv.append("input")
+	.attr("type", "text")
+	.attr("name", "Yaxis0")
+	.attr("id", "Yaxis0")
+	.attr("value", currentExample.yAxis[0]);
+
+	changeYDiv.append("input")
 		.attr("type", "text")
 		.attr("name", "Yaxis1")
 		.attr("id", "Yaxis1")
 		.attr("value", currentExample.yAxis[1]);
 
 	changeAxesDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "Yaxis2")
-		.attr("id", "Yaxis2")
-		.attr("value", currentExample.yAxis[0]);
-
-	changeAxesDiv.append("input")
 		.attr("name", "changeAxesButton")
 		.attr("type", "button")
 		.attr("value", "Change axes labels")
 		.attr("id", "changeAxesButton")
+		.style("float", "right")
 		.on("click", function() {
 			var x1 = d3.select("#Xaxis1").node().value;
-			var x0 = d3.select("#Xaxis2").node().value;
+			var x0 = d3.select("#Xaxis0").node().value;
 			var y1 = d3.select("#Yaxis1").node().value;
-			var y0 = d3.select("#Yaxis2").node().value;
+			var y0 = d3.select("#Yaxis0").node().value;
 			if (!(x1 in vecs) || x1.length == 0) {
 				addWordError.text("Word " + x1 + " not in dictionary.")
 					.style("visibility", "");
-			}
-			else if (!(x0 in vecs) || x0.length == 0) {
+			}	else if (!(x0 in vecs) || x0.length == 0) {
 				addWordError.text("Word " + x0 + " not in dictionary.")
 					.style("visibility", "");
 			} else if (!(y1 in vecs) || y1.length == 0) {
