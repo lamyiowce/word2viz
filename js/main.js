@@ -44,6 +44,10 @@ function callback1(errors, rawData) {
 				rawData.filter(function(obj) {
 					return obj.id == d3.select("#dataSelect").node().value;
 			})[0]);
+			d3.select("#Xaxis0").node().value = currentExample.xAxis[0];
+			d3.select("#Xaxis1").node().value = currentExample.xAxis[1];
+			d3.select("#Yaxis0").node().value = currentExample.yAxis[0];
+			d3.select("#Yaxis1").node().value = currentExample.yAxis[1];
 			currentPoints = getWithAxesJson(vecs, currentExample);
 			updateExample(currentExample);
 		});
@@ -190,18 +194,18 @@ var addPairDiv = menuDiv.append("div");
 
 	changeYDiv.append("text")
 		.text("Y axis: ");
+	
+	changeYDiv.append("input")
+	.attr("type", "text")
+	.attr("name", "Yaxis1")
+	.attr("id", "Yaxis1")
+	.attr("value", currentExample.yAxis[1]);
 
 	changeYDiv.append("input")
 	.attr("type", "text")
 	.attr("name", "Yaxis0")
 	.attr("id", "Yaxis0")
 	.attr("value", currentExample.yAxis[0]);
-
-	changeYDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "Yaxis1")
-		.attr("id", "Yaxis1")
-		.attr("value", currentExample.yAxis[1]);
 
 	changeAxesDiv.append("input")
 		.attr("name", "changeAxesButton")
