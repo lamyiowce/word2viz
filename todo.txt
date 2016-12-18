@@ -1,0 +1,11 @@
+-- error przy dodawaniu pustego słowa -- done
+-- bootstrap i w ogóle
+-- ładny tytuł
+-- opis pod
+-- przycisk reset
+-- export/import jsona
+-- współczynnik korelacji
+
+bonus:
+-- autocomplete słów
+-- płynne przejścia
