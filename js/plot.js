@@ -9,8 +9,8 @@ function Plot(selector, data, info) {
     }
 
     this.makePlot = function (data, info) {
-    	console.log("initial: ", d3.select(parent));
-    	svg = d3.select(parent)
+    	console.log("initial: ", d3.select("#"+parent));
+    	svg = d3.select("#"+parent)
 			.append("svg")
 			.attr("width", width+margin.left + margin.right)
 			.attr("height", height+margin.top+ margin.bottom);

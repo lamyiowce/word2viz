@@ -171,7 +171,7 @@ function callback1(errors, rawData) {
 		}
 }
 
-	var plot = new Plot("body", currentPoints, currentExample);
+	var plot = new Plot("plotDiv", currentPoints, currentExample);
 	updateExample(currentExample);
 
 	// plot updating

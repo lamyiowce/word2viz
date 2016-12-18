@@ -1,6 +1,6 @@
 -- error przy dodawaniu pustego słowa -- done
--- bootstrap i w ogóle
--- ładny tytuł
+-- bootstrap i w ogóle -- done
+-- ładny tytuł --done
 -- opis pod
 -- przycisk reset
 -- export/import jsona
@@ -9,3 +9,8 @@
 bonus:
 -- autocomplete słów
 -- płynne przejścia
+
+
+-- postawić na gh
+-- zrobić żby pola były obok siebie -- done
+-- pousuwać console.logi
