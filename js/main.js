@@ -23,22 +23,14 @@ function callback1(errors, rawData) {
 	console.log(rawData);
 
 	// Data plot selection
-	var menuDiv = d3.select("body")
-		.append("div")
-		.style("float", "right")
-		.style("width", "40%")
-		.style("padding", "10px");
+	var menuDiv = d3.select("#menu");
 
+	var selectDiv = menuDiv.select("#selectDiv");
 
-	var selectDiv = menuDiv.append("div");
+	// selectDiv.append("div").append("h3")
+	// 	.text("What do you want to see?");
 
-	selectDiv.append("div").append("h3")
-		.text("What do you want to see?");
-
-	var wybor = selectDiv
-		.append("div")
-		.append('select')
-		.attr('id', 'dataSelect')
+	var wybor = selectDiv.select('#dataSelect')
 		.on('change', function (x, y) {
 			currentExample = getParsedExample(vecs,
 				rawData.filter(function(obj) {
@@ -67,18 +59,9 @@ function callback1(errors, rawData) {
 
 	console.log(currentExample);
 
-	// var menuDiv =  d3.select("body")
-	// 	.append("div")
-	// 	.style("float", "right");
-
  // Adding single words
 
-	var addWordDiv = menuDiv.append("div");
-
-	addWordDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "addWordInput")
-		.attr("id", "addWordInput")
+	var addWordDiv = menuDiv.select("#addWordDiv");
 
 	document.getElementById("addWordInput")
 		.addEventListener("keyup", function(event) {
@@ -88,11 +71,7 @@ function callback1(errors, rawData) {
 	    }
 		});
 
-	addWordDiv.append("input")
-		.attr("name", "addButton")
-		.attr("type", "button")
-		.attr("value", "Add word")
-		.attr("id", "addButton")
+	addWordDiv.select("#addButton")
 		.on("click", function() {
 			var newWord = d3.select("#addWordInput").node().value;
 			console.log(newWord);
@@ -106,19 +85,7 @@ function callback1(errors, rawData) {
 
 // Adding a pair
 
-var addPairDiv = menuDiv.append("div");
-
-	addPairDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "addPairInput")
-		.attr("id", "addPairInput1")
-		.attr("class", "addPairInput");
-
-	addPairDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "addPairInput")
-		.attr("id", "addPairInput2")
-		.attr("class", "addPairInput");
+var addPairDiv = menuDiv.select("#addPairDiv");
 
 	document.getElementById("addPairInput1")
 		.addEventListener("keyup", function(event) {
@@ -136,11 +103,7 @@ var addPairDiv = menuDiv.append("div");
 			}
 		});
 
-	addPairDiv.append("input")
-		.attr("name", "addPairButton")
-		.attr("type", "button")
-		.attr("value", "Add pair")
-		.attr("id", "addPairButton")
+	addPairDiv.select("#addPairButton")
 		.on("click", function() {
 			var newWord1 = d3.select("#addPairInput1").node().value;
 			var newWord2 = d3.select("#addPairInput2").node().value;
@@ -156,49 +119,25 @@ var addPairDiv = menuDiv.append("div");
 		});
 
 // axis changing
-	var changeAxesDiv = menuDiv.append("div");
+	// var changeAxesDiv = menuDiv.select("div");
 
-	var changeXDiv = changeAxesDiv.append("div");
+	var changeXDiv = menuDiv.select("#changeXDiv");
 
-	changeXDiv.append("text")
-		.text("X axis: ");
-
-	changeXDiv.append("input")
-		.attr("type", "text")
-		.attr("name", "Xaxis1")
-		.attr("id", "Xaxis1")
+	changeXDiv.select("#Xaxis1")
 		.attr("value", currentExample.xAxis[1]);
 
-	changeXDiv.append("input")
-	.attr("type", "text")
-	.attr("name", "Xaxis0")
-	.attr("id", "Xaxis0")
+	changeXDiv.select("#Xaxis0")
 	.attr("value", currentExample.xAxis[0]);
 
-	var changeYDiv = changeAxesDiv.append("div");
+	var changeYDiv = menuDiv.select("#changeYDiv");
 
-
-	changeYDiv.append("text")
-		.text("Y axis: ");
-
-	changeYDiv.append("input")
-	.attr("type", "text")
-	.attr("name", "Yaxis1")
-	.attr("id", "Yaxis1")
+	changeYDiv.select("#Yaxis1")
 	.attr("value", currentExample.yAxis[1]);
 
-	changeYDiv.append("input")
-	.attr("type", "text")
-	.attr("name", "Yaxis0")
-	.attr("id", "Yaxis0")
+	changeYDiv.select("#Yaxis0")
 	.attr("value", currentExample.yAxis[0]);
 
-	changeAxesDiv.append("input")
-		.attr("name", "changeAxesButton")
-		.attr("type", "button")
-		.attr("value", "Change axes labels")
-		.attr("id", "changeAxesButton")
-		.style("float", "right")
+	menuDiv.select("#changeAxesButton")
 		.on("click", function() {
 			var x1 = d3.select("#Xaxis1").node().value;
 			var x0 = d3.select("#Xaxis0").node().value;
@@ -214,11 +153,11 @@ var addPairDiv = menuDiv.append("div");
 			}
 		});
 
-	// word adding error display
+// Word adding error display
 	var addWordError = menuDiv.append("text")
 		.style("visibility", "hidden");
 
-	// Chcecking words for errors
+// Chcecking words for errors
 
 	function checkForErrors (newWordsList) {
 		var errorMsg = "";

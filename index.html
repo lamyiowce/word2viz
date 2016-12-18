@@ -5,12 +5,45 @@
     <script src="lib/d3.v3.min.js"></script>
     <link rel="stylesheet" href="main.css" />
     <script src="js/utils.js" type="text/javascript"></script>
-
     <script src="js/plot.js" type="text/javascript"></script>
     <script src="js/parseData.js" type="text/javascript"></script>
   </head>
   <body>
-
+    <div style="float: right; width: 40%; padding: 10px;" id="menu">
+      <div id="selectDiv">
+        <div>
+          <h3>
+            What do you want to see?
+          </h3>
+        </div>
+        <div>
+          <select id="dataSelect">
+          </select>
+        </div>
+      </div>
+      <div id="addWordDiv">
+        <input name="addWordInput" id="addWordInput" type="text">
+        <input name="addButton" value="Add word" id="addButton" type="button">
+      </div>
+      <div id="addPairDiv">
+        <input name="addPairInput" id="addPairInput1" class="addPairInput" type="text">
+        <input name="addPairInput" id="addPairInput2" class="addPairInput" type="text">
+        <input name="addPairButton" value="Add pair" id="addPairButton" type="button">
+      </div>
+      <div id="changeAxesDiv">
+        <div id="changeXDiv">
+          <text>X axis: </text>
+          <input name="Xaxis1" id="Xaxis1" type="text">
+          <input name="Xaxis0" id="Xaxis0" type="text">
+        </div>
+        <div id="changeYDiv">
+          <text>Y axis: </text>
+          <input name="Yaxis1" id="Yaxis1" type="text">
+          <input name="Yaxis0" id="Yaxis0" type="text">
+        </div>
+        <input name="changeAxesButton" value="Change axes labels" id="changeAxesButton" style="float: right;" type="button">
+      </div>
+    </div>
     <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>
