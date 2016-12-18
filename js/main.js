@@ -56,13 +56,9 @@ function callback1(errors, rawData) {
 	})[0]);
 
 	var currentPoints = getWithAxesJson(vecs, currentExample);
-
-	console.log(currentExample);
+	var modifyDiv = menuDiv.select("#modifyDiv");
 
  // Adding single words
-
-	var addWordDiv = menuDiv.select("#addWordDiv");
-
 	document.getElementById("addWordInput")
 		.addEventListener("keyup", function(event) {
 	    event.preventDefault();
@@ -71,7 +67,7 @@ function callback1(errors, rawData) {
 	    }
 		});
 
-	addWordDiv.select("#addButton")
+	modifyDiv.select("#addButton")
 		.on("click", function() {
 			var newWord = d3.select("#addWordInput").node().value;
 			console.log(newWord);
@@ -83,10 +79,7 @@ function callback1(errors, rawData) {
 			}
 		});
 
-// Adding a pair
-
-var addPairDiv = menuDiv.select("#addPairDiv");
-
+	// Adding a pair
 	document.getElementById("addPairInput1")
 		.addEventListener("keyup", function(event) {
 	    event.preventDefault();
@@ -103,7 +96,7 @@ var addPairDiv = menuDiv.select("#addPairDiv");
 			}
 		});
 
-	addPairDiv.select("#addPairButton")
+	modifyDiv.select("#addPairButton")
 		.on("click", function() {
 			var newWord1 = d3.select("#addPairInput1").node().value;
 			var newWord2 = d3.select("#addPairInput2").node().value;
@@ -118,10 +111,8 @@ var addPairDiv = menuDiv.select("#addPairDiv");
 			}
 		});
 
-// axis changing
-	// var changeAxesDiv = menuDiv.select("div");
-
-	var changeXDiv = menuDiv.select("#changeXDiv");
+	// axis changing
+	var changeXDiv = modifyDiv.select("#changeAxesDiv");
 
 	changeXDiv.select("#Xaxis1")
 		.attr("value", currentExample.xAxis[1]);
@@ -129,7 +120,7 @@ var addPairDiv = menuDiv.select("#addPairDiv");
 	changeXDiv.select("#Xaxis0")
 	.attr("value", currentExample.xAxis[0]);
 
-	var changeYDiv = menuDiv.select("#changeYDiv");
+	var changeYDiv = modifyDiv.select("#changeAxesDiv");
 
 	changeYDiv.select("#Yaxis1")
 	.attr("value", currentExample.yAxis[1]);
@@ -137,7 +128,7 @@ var addPairDiv = menuDiv.select("#addPairDiv");
 	changeYDiv.select("#Yaxis0")
 	.attr("value", currentExample.yAxis[0]);
 
-	menuDiv.select("#changeAxesButton")
+	modifyDiv.select("#changeAxesButton")
 		.on("click", function() {
 			var x1 = d3.select("#Xaxis1").node().value;
 			var x0 = d3.select("#Xaxis0").node().value;
@@ -154,7 +145,7 @@ var addPairDiv = menuDiv.select("#addPairDiv");
 		});
 
 // Word adding error display
-	var addWordError = menuDiv.append("text")
+	var addWordError = modifyDiv.append("text")
 		.style("visibility", "hidden");
 
 // Chcecking words for errors
