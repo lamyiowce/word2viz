@@ -96,16 +96,11 @@ function callback1(errors, rawData) {
 		.on("click", function() {
 			var newWord = d3.select("#addWordInput").node().value;
 			console.log(newWord);
-			if (!(newWord in vecs) || newWord.length == 0) {
-				addWordError.text("Word " + newWord + " not in dictionary.")
-					.style("visibility", "");
-			}
-			else {
-				d3.select("#addWordInput").node().value = "";
-				addWordError.style("visibility", "hidden");
-				currentExample.flat[newWord] = currentExample.groupsNumber++;
-				console.log(currentExample);
-				updateExample(currentExample);
+			if (!checkForErrors([newWord])) {
+					d3.select("#addWordInput").node().value = "";
+					currentExample.flat[newWord] = currentExample.groupsNumber++;
+					console.log(currentExample);
+					updateExample(currentExample);
 			}
 		});
 
@@ -149,16 +144,7 @@ var addPairDiv = menuDiv.append("div");
 		.on("click", function() {
 			var newWord1 = d3.select("#addPairInput1").node().value;
 			var newWord2 = d3.select("#addPairInput2").node().value;
-			console.log(newWord1, newWord2);
-			if (!(newWord1 in vecs) || newWord1.length == 0) {
-				addWordError.text("Word " + newWord1 + " not in dictionary.")
-					.style("visibility", "");
-			}
-			else if (!(newWord2 in vecs) || newWord2.length == 0) {
-					addWordError.text("Word " + newWord2 + " not in dictionary.")
-						.style("visibility", "");
-			}
-			else {
+			if (!checkForErrors([newWord1, newWord2])) {
 				d3.select("#addPairInput1").node().value = "";
 				d3.select("#addPairInput2").node().value = "";
 				addWordError.style("visibility", "hidden");
@@ -194,7 +180,7 @@ var addPairDiv = menuDiv.append("div");
 
 	changeYDiv.append("text")
 		.text("Y axis: ");
-	
+
 	changeYDiv.append("input")
 	.attr("type", "text")
 	.attr("name", "Yaxis1")
@@ -218,20 +204,7 @@ var addPairDiv = menuDiv.append("div");
 			var x0 = d3.select("#Xaxis0").node().value;
 			var y1 = d3.select("#Yaxis1").node().value;
 			var y0 = d3.select("#Yaxis0").node().value;
-			if (!(x1 in vecs) || x1.length == 0) {
-				addWordError.text("Word " + x1 + " not in dictionary.")
-					.style("visibility", "");
-			}	else if (!(x0 in vecs) || x0.length == 0) {
-				addWordError.text("Word " + x0 + " not in dictionary.")
-					.style("visibility", "");
-			} else if (!(y1 in vecs) || y1.length == 0) {
-				addWordError.text("Word " + y1 + " not in dictionary.")
-					.style("visibility", "");
-			} else if (!(y0 in vecs) || y0.length == 0) {
-				addWordError.text("Word " + y0 + " not in dictionary.")
-					.style("visibility", "");
-			} else {
-				addWordError.style("visibility", "hidden");
+			if (!checkForErrors([x0, x1, y0, y1])) {
 				currentExample.xAxis[0] = x0;
 				currentExample.xAxis[1] = x1;
 				currentExample.yAxis[0] = y0;
@@ -239,11 +212,34 @@ var addPairDiv = menuDiv.append("div");
 				console.log(currentExample);
 				updateExample(currentExample);
 			}
-			});
+		});
 
 	// word adding error display
 	var addWordError = menuDiv.append("text")
 		.style("visibility", "hidden");
+
+	// Chcecking words for errors
+
+	function checkForErrors (newWordsList) {
+		var errorMsg = "";
+		newWordsList.forEach (function (newWord) {
+			if (newWord.length == 0) {
+				errorMsg = errorMsg + "\nEnter a non-empty word.";
+			}
+			else if (!(newWord in vecs)) {
+				errorMsg = errorMsg + "\nWord \"" + newWord + "\" not in the dictionary.";
+			}
+		})
+		addWordError.text(errorMsg);
+		if (errorMsg.length == 0) {
+			addWordError.style("visibility", "hidden");
+			return false;
+		}
+		else {
+			addWordError.style("visibility", "");
+			return true;
+		}
+}
 
 	var plot = new Plot("body", currentPoints, currentExample);
 	updateExample(currentExample);
