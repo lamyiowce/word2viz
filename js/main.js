@@ -1,6 +1,6 @@
 "use strict";
 
-d3.csv("/data/minimal.50d.3f.csv", callback);
+d3.csv("https://www.dropbox.com/s/nkd9pyk39xpj8b7/minimal.50d.3f.csv?dl=0", callback);
 
 var vecs = {};
 
@@ -26,19 +26,22 @@ function callback1(errors, rawData) {
 	var menuDiv = d3.select("#menu");
 	var selectDiv = menuDiv.select("#selectDiv");
 
+	function exampleChange () {
+		currentExample = getParsedExample(vecs,
+			rawData.filter(function(obj) {
+				return obj.id == d3.select("#dataSelect").node().value;
+		})[0]);
+		d3.select("#Xaxis0").node().value = currentExample.xAxis[0];
+		d3.select("#Xaxis1").node().value = currentExample.xAxis[1];
+		d3.select("#Yaxis0").node().value = currentExample.yAxis[0];
+		d3.select("#Yaxis1").node().value = currentExample.yAxis[1];
+		currentPoints = getWithAxesJson(vecs, currentExample);
+		updateExample(currentExample);
+
+	}
+
 	var wybor = selectDiv.select('#dataSelect')
-		.on('change', function (x, y) {
-			currentExample = getParsedExample(vecs,
-				rawData.filter(function(obj) {
-					return obj.id == d3.select("#dataSelect").node().value;
-			})[0]);
-			d3.select("#Xaxis0").node().value = currentExample.xAxis[0];
-			d3.select("#Xaxis1").node().value = currentExample.xAxis[1];
-			d3.select("#Yaxis0").node().value = currentExample.yAxis[0];
-			d3.select("#Yaxis1").node().value = currentExample.yAxis[1];
-			currentPoints = getWithAxesJson(vecs, currentExample);
-			updateExample(currentExample);
-		});
+		.on('change', exampleChange);
 
 	for (var i = 0; i < rawData.length; i++) {
 		wybor.append('option')
@@ -107,7 +110,6 @@ function callback1(errors, rawData) {
 	var changeXDiv = modifyDiv.select("#changeAxesDiv");
 	changeXDiv.select("#Xaxis1")
 		.attr("value", currentExample.xAxis[1]);
-		console.log("should have changed x axis 1 to " + currentExample.xAxis[1]);
 	changeXDiv.select("#Xaxis0")
 		.attr("value", currentExample.xAxis[0]);
 
@@ -171,6 +173,8 @@ function callback1(errors, rawData) {
 
 	var plot = new Plot("plotDiv", currentPoints, currentExample);
 	updateExample(currentExample);
+	exampleChange();
+
 
 	// plot updating
 	function updateExample() {
