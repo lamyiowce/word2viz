@@ -144,7 +144,6 @@ function callback1(errors, rawData) {
 
 // Word adding error display
 	var addWordError = modifyDiv.select("#errorDiv");
-
 	var errorText = addWordError.append("text");
 
 // Chcecking words for errors
