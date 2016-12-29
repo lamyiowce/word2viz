@@ -20,15 +20,11 @@ function callback(data) {
 
 function callback1(errors, rawData) {
 	console.log(errors);
-	console.log(rawData);
+	// console.log(rawData);
 
-	// Data plot selection
+	// Data set selection
 	var menuDiv = d3.select("#menu");
-
 	var selectDiv = menuDiv.select("#selectDiv");
-
-	// selectDiv.append("div").append("h3")
-	// 	.text("What do you want to see?");
 
 	var wybor = selectDiv.select('#dataSelect')
 		.on('change', function (x, y) {
@@ -70,11 +66,9 @@ function callback1(errors, rawData) {
 	modifyDiv.select("#addButton")
 		.on("click", function() {
 			var newWord = d3.select("#addWordInput").node().value;
-			console.log(newWord);
 			if (!checkForErrors([newWord])) {
 					d3.select("#addWordInput").node().value = "";
 					currentExample.flat[newWord] = currentExample.groupsNumber++;
-					console.log(currentExample);
 					updateExample(currentExample);
 			}
 		});
@@ -103,30 +97,35 @@ function callback1(errors, rawData) {
 			if (!checkForErrors([newWord1, newWord2])) {
 				d3.select("#addPairInput1").node().value = "";
 				d3.select("#addPairInput2").node().value = "";
-				addWordError.style("visibility", "hidden");
 				currentExample.flat[newWord2] = currentExample.groupsNumber;
 				currentExample.flat[newWord1] = currentExample.groupsNumber++;
-				console.log(currentExample);
 				updateExample(currentExample);
 			}
 		});
 
 	// axis changing
 	var changeXDiv = modifyDiv.select("#changeAxesDiv");
-
 	changeXDiv.select("#Xaxis1")
 		.attr("value", currentExample.xAxis[1]);
-
+		console.log("should have changed x axis 1 to " + currentExample.xAxis[1]);
 	changeXDiv.select("#Xaxis0")
-	.attr("value", currentExample.xAxis[0]);
+		.attr("value", currentExample.xAxis[0]);
 
 	var changeYDiv = modifyDiv.select("#changeAxesDiv");
-
 	changeYDiv.select("#Yaxis1")
-	.attr("value", currentExample.yAxis[1]);
-
+		.attr("value", currentExample.yAxis[1]);
 	changeYDiv.select("#Yaxis0")
-	.attr("value", currentExample.yAxis[0]);
+		.attr("value", currentExample.yAxis[0]);
+
+	["Xaxis1","Xaxis0","Yaxis1","Yaxis0"].forEach(function (id) {
+		document.getElementById(id)
+			.addEventListener("keyup", function(event) {
+				event.preventDefault();
+				if (event.keyCode == 13) {
+						document.getElementById("changeAxesButton").click();
+				}
+			});
+	});
 
 	modifyDiv.select("#changeAxesButton")
 		.on("click", function() {
@@ -139,14 +138,14 @@ function callback1(errors, rawData) {
 				currentExample.xAxis[1] = x1;
 				currentExample.yAxis[0] = y0;
 				currentExample.yAxis[1] = y1;
-				console.log(currentExample);
 				updateExample(currentExample);
 			}
 		});
 
 // Word adding error display
-	var addWordError = modifyDiv.append("text")
-		.style("visibility", "hidden");
+	var addWordError = modifyDiv.select("#errorDiv");
+
+	var errorText = addWordError.append("text");
 
 // Chcecking words for errors
 
@@ -160,13 +159,13 @@ function callback1(errors, rawData) {
 				errorMsg = errorMsg + "\nWord \"" + newWord + "\" not in the dictionary.";
 			}
 		})
-		addWordError.text(errorMsg);
+		errorText.text(errorMsg);
 		if (errorMsg.length == 0) {
-			addWordError.style("visibility", "hidden");
+			addWordError.style("display", "none");
 			return false;
 		}
 		else {
-			addWordError.style("visibility", "");
+			addWordError.style("display", "");
 			return true;
 		}
 }
@@ -181,7 +180,6 @@ function callback1(errors, rawData) {
 		// point deletion
 		d3.selectAll(".pointlabel")
 			.on("dblclick", function (d) {
-				console.log(d);
 				for(var word in currentExample.flat) {
 	    		if(currentExample.flat.hasOwnProperty(word) && currentExample.flat[word] == d.group) {
 	        	delete currentExample.flat[word];

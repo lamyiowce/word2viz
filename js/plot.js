@@ -9,7 +9,6 @@ function Plot(selector, data, info) {
     }
 
     this.makePlot = function (data, info) {
-    	console.log("initial: ", d3.select("#"+parent));
     	svg = d3.select("#"+parent)
 			.append("svg")
 			.attr("width", width+margin.left + margin.right)
@@ -72,11 +71,6 @@ function Plot(selector, data, info) {
 				.attr("dx", -height*0.975)
 				.text(info.yAxis[1]);
 
-	/*	var elem = plot.selectAll("plot")
-			.data(data);
-*/
-		console.log("plot: ", plot);
-
 		var it = 0;
 		var dataFiltered;
 		var linkContainer = plot.append("g")
@@ -136,7 +130,6 @@ function Plot(selector, data, info) {
 	this.makePlot(data, info);
 
 	this.updatePlot = function (data, info) {
-		console.log(svg);
 		svg.remove();
 		this.makePlot(data, info);
 	}

@@ -28,8 +28,8 @@ function vlen(a)
 	return Math.sqrt(ret);
 }
 
-function subtract(a, b) 
-{	
+function subtract(a, b)
+{
 	var c = [];
 	for (var i = 0; i < a.length; i++)
 	{
@@ -55,14 +55,13 @@ function getWithAxes(vecs, words, a, b)
 	var plotData = [];
 	for (var i = 0; i < wordsKeys.length; i++)
 	{
-		plotData.push({ 
-			word: wordsKeys[i], 
-			a_axis: dotNorm(vecs[wordsKeys[i]], a), 
+		plotData.push({
+			word: wordsKeys[i],
+			a_axis: dotNorm(vecs[wordsKeys[i]], a),
 			b_axis: dotNorm(vecs[wordsKeys[i]], b),
 			group: words[wordsKeys[i]]
 		});
 	}
-	console.log(plotData);
 	return plotData;
 }
 
