@@ -1,6 +1,6 @@
 "use strict";
 
-d3.csv("https://www.dropbox.com/s/nkd9pyk39xpj8b7/minimal.50d.3f.csv?dl=0", callback);
+d3.csv("https://s3.amazonaws.com/pmigdal/data/minimal.50d.3f.csv", callback);
 
 var vecs = {};
 
