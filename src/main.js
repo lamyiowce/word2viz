@@ -15,7 +15,7 @@ function callback(data) {
 		}
 		vecs[data[i][0]] = vec;
 	}
-	d3.json("exampleData.json",callback1);
+	d3.json("word_selections.json",callback1);
 }
 
 function callback1(errors, rawData) {
