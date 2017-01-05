@@ -68,7 +68,7 @@ function callback1(errors, rawData) {
 
 	modifyDiv.select("#addButton")
 		.on("click", function() {
-			var newWord = d3.select("#addWordInput").node().value;
+			var newWord = d3.select("#addWordInput").node().value.toLowerCase();
 			if (!checkForErrors([newWord])) {
 					d3.select("#addWordInput").node().value = "";
 					currentExample.flat[newWord] = currentExample.groupsNumber++;
@@ -95,8 +95,8 @@ function callback1(errors, rawData) {
 
 	modifyDiv.select("#addPairButton")
 		.on("click", function() {
-			var newWord1 = d3.select("#addPairInput1").node().value;
-			var newWord2 = d3.select("#addPairInput2").node().value;
+			var newWord1 = d3.select("#addPairInput1").node().value.toLowerCase();
+			var newWord2 = d3.select("#addPairInput2").node().value.toLowerCase();
 			if (!checkForErrors([newWord1, newWord2])) {
 				d3.select("#addPairInput1").node().value = "";
 				d3.select("#addPairInput2").node().value = "";
@@ -131,10 +131,10 @@ function callback1(errors, rawData) {
 
 	modifyDiv.select("#changeAxesButton")
 		.on("click", function() {
-			var x1 = d3.select("#Xaxis1").node().value;
-			var x0 = d3.select("#Xaxis0").node().value;
-			var y1 = d3.select("#Yaxis1").node().value;
-			var y0 = d3.select("#Yaxis0").node().value;
+			var x1 = d3.select("#Xaxis1").node().value.toLowerCase();
+			var x0 = d3.select("#Xaxis0").node().value.toLowerCase();
+			var y1 = d3.select("#Yaxis1").node().value.toLowerCase();
+			var y0 = d3.select("#Yaxis0").node().value.toLowerCase();
 			if (!checkForErrors([x0, x1, y0, y1])) {
 				currentExample.xAxis[0] = x0;
 				currentExample.xAxis[1] = x1;

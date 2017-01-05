@@ -41,6 +41,11 @@
 	opacity: 0.3;
 }
 
+#bePatient {
+  line-height: 300px;
+  text-align: center;
+}
+
 div {
   padding: 6px;
 }
@@ -76,4 +81,9 @@ select.custom {
 
 .form-inline {
   padding: 0;
+}
+
+.button-big-margin {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

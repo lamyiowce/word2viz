@@ -9,6 +9,8 @@ function Plot(selector, data, info) {
     }
 
     this.makePlot = function (data, info) {
+			d3.select("#bePatient").remove();
+			
     	svg = d3.select("#"+parent)
 			.append("svg")
 			.attr("width", width+margin.left + margin.right)
