@@ -5,7 +5,7 @@ d3.csv("https://s3.amazonaws.com/pmigdal/data/minimal.50d.3f.csv", callback);
 var vecs = {};
 
 function callback(data) {
-	console.log("Loaded vector data.");
+	console.log("Loaded vector data (30MB)...");
 	for (var i = 0; i < data.length; i++) {
 		var vec = [];
 		for (var key in data[i]) {
